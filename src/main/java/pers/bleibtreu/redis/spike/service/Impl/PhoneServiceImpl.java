@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pers.bleibtreu.redis.spike.dao.PhoneDao;
 import pers.bleibtreu.redis.spike.entity.Phone;
 import pers.bleibtreu.redis.spike.service.PhoneService;
+import pers.bleibtreu.redis.spike.vo.ResponseMessage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +24,7 @@ public class PhoneServiceImpl implements PhoneService {
     @Autowired
     private PhoneDao phoneDao;
 
-    private String[] phoneList = {"iphone6","iphone7","iphone8","iphone9","iphone10","iphone11","iphone12","xiaomi10","xiaomi11","huaweiP40"};
+    private String[] phoneList = {"iphone6", "iphone7", "iphone8", "iphone9", "iphone10", "iphone11", "iphone12", "xiaomi10", "xiaomi11", "huaweiP40"};
 
     @Override
     public void initNum() {
@@ -39,5 +40,35 @@ public class PhoneServiceImpl implements PhoneService {
             list.add(new Phone(x, phoneDao.select(x)));
         });
         return list;
+    }
+
+    @Override
+    public boolean handleOrder(String phone, int orderNum) {
+        try {
+            int num = phoneDao.select(phone);
+            if (num == 0 || orderNum > num) {
+                return false;
+            }
+            phoneDao.update(phone, num - orderNum);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean cannelOrder(String phone, int orderNum) {
+        try {
+            int num = phoneDao.select(phone);
+            if (num == 100 || (orderNum + num) > 100) {
+                return false;
+            }
+            phoneDao.update(phone, num + orderNum);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

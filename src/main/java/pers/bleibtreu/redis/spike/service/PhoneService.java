@@ -9,4 +9,8 @@ public interface PhoneService {
     void initNum();
 
     List<Phone> getAllInfo();
+
+    boolean handleOrder(String phone, int orderNum);
+
+    boolean cannelOrder(String phone, int orderNum);
 }
