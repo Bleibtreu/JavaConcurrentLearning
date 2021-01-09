@@ -59,6 +59,13 @@
             <version>3.0.0</version>
         </dependency>
 
+        <!--添加MyBatis依赖 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.6</version>
+        </dependency>
+
     </dependencies>
 
 </project>
