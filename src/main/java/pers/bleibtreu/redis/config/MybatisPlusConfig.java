@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @author bleibtreu
  * @date 2021/1/15 9:57
  */
-//@Configuration
+@Configuration
 public class MybatisPlusConfig {
 
     /**
@@ -18,7 +18,7 @@ public class MybatisPlusConfig {
      * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false
      * 避免缓存出现问题
      */
-//    @Bean
+    @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
