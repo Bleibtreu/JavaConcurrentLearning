@@ -1,17 +1,31 @@
 server:
   port: 8090
+  servlet:
+    context-path: /
 
 spring:
   datasource:
-    hikari:
-      master:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: "jdbc:mysql://localhost:3306/database?characterEncoding=utf8&useSSL=false"
-        username: root
-        password: localhost
-        minimum-idle: 5
-        maximum-pool-size: 10
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: "jdbc:mysql://localhost:3306/my_test?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai"
+      username: root
+      password: localhost
+      minimum-idle: 5
+      maximum-pool-size: 10
   redis:
     database: 0
     host: localhost
     port: 6379
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
